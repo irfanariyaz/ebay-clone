@@ -69,7 +69,7 @@ function Header({}: Props) {
        type="text" 
        placeholder='Search for anything' /> 
     </div>
-    <button className='hidden  sm:bg-blue-600 text-white px-5 py-2 rounded 
+    <button className='  sm:bg-blue-600 text-white px-5 py-2 rounded 
     border-2 border-blue-600  '>Search</button>
     <Link href="/create">
     <button className=' border-2 border-blue-600 px-5  md:px-10 py-2
