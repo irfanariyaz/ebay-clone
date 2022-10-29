@@ -35,7 +35,7 @@ function Header({}: Props) {
         <p className='hidden md:inline-flex cursor-pointer' >Sell</p>
         <p className='hidden md:inline-flex cursor-pointer' >Watchlist</p>
 
-        <Link href="/addItem" className='flex items-center hover:link'>
+        <Link href="/additem" className='flex items-center hover:link'>
             Add to Inventory
         <ChevronDownIcon className='h-4' />
         <ShoppingCartIcon className='h-4'/>  
