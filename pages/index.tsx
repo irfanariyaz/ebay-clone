@@ -12,7 +12,7 @@ import Header from '../components/Header'
 
 const Home: NextPage = () => {
   const {contract} =useContract(process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT,"marketplace")
-  const {  data:listings,isLoading:loadingListings }=useListings(contract)
+  const {  data:listings,isLoading:loadingListings }=useActiveListings(contract)
  
 
   return (
@@ -25,8 +25,9 @@ const Home: NextPage = () => {
    ):(
     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-5 mx-auto'>
       {listings?.map(listing=>(
-  
-        <div key={listing.id} className="flex flex-col card hover:scale-105 transition-all duration-150 ease-out">
+  <Link key={listing.id} href={`/listing/${listing.id}`} 
+  className="flex flex-col card hover:scale-105 transition-all duration-150 ease-out">
+        <div  >
               <div className=' flex flex-1  flex-col items-center pb-2'>
                 <MediaRenderer src={listing.asset.image} className=""/>
               </div>
@@ -54,7 +55,7 @@ const Home: NextPage = () => {
                         )}
                </div>
         </div>
-  
+        </Link>
       )
     
       )}

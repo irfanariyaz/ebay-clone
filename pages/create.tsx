@@ -30,7 +30,7 @@ const Create = (props: Props) => {
     const ownedNFTs = useOwnedNFTs(collectionContract,address)
     const networkMismatch = useNetworkMismatch();
     const [,switchNetwork] = useNetwork();
-console.log("switchnetwork",switchNetwork,"mismatch",networkMismatch)
+
 
     const {mutate: createDirectListing ,isLoading,error } = useCreateDirectListing(contract);
 

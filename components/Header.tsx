@@ -45,7 +45,7 @@ function Header({}: Props) {
    <hr  className='mt-2'/>
    <section className='flex items-center space-x-2 py-2'>
     <div className='h-16 w-16 sm:w-28 md:44 cursor-pointer flex-shrink'>
-        <Link href="" >
+        <Link href="/" >
             <Image
             className='h-full w-full object-contain'
             alt='Thirdweb logo' 
