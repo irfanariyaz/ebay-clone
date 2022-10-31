@@ -33,6 +33,7 @@ function additem({}: Props) {
             image : image, //image url or file
         }
         try{
+            console.log("inside try")
             const tx = await contract.mintTo(address,metadata)
             const reciept = tx.receipt//transaction reciept
             const tokenId = tx.id

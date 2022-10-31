@@ -12,7 +12,7 @@ import Header from '../components/Header'
 
 const Home: NextPage = () => {
   const {contract} =useContract(process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT,"marketplace")
-  const {  data:listings,isLoading:loadingListings }=useActiveListings(contract)
+  const {  data:listings,isLoading:loadingListings }=useActiveListings(contract,{})
  
 
   return (

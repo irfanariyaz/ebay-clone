@@ -104,7 +104,7 @@ const handleCreateListing =async (e:FormEvent<HTMLFormElement>)=>{
             <p>
                Below you will  find the NFT's you own in your Wallet
             </p>
-            <div className='flex overflow-x-scroll space-x-2'>
+            <div className='flex overflow-x-scroll space-x-2 '>
                 {ownedNFTs?.data?.map(nft => (
                     <div key={nft.metadata.id}
                     onClick={()=>setSelectNFT(nft)}
@@ -112,7 +112,7 @@ const handleCreateListing =async (e:FormEvent<HTMLFormElement>)=>{
                                 ${nft.metadata.id === selectNFT?.metadata.id ? "border-black ": "border-transparent"}                  `}>
                         <MediaRenderer className='h-48 w-fit rounded ' src={nft.metadata.image} />
                         <p className='text-lg truncate font-bold'>{nft.metadata.name}</p>
-                        <p className='text-xs truncate'>{nft.metadata.description}</p>
+                        <p className='truncate text-xs  '>{nft.metadata.description}</p>
                     </div>
                 ))}
             </div>

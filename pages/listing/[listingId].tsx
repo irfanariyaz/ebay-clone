@@ -21,6 +21,7 @@ import networks from '../../utils/networks'
 import { type } from 'os'
 import { ethers } from 'ethers'
 
+
 function listingPage() {
   const address = useAddress()
     
@@ -42,8 +43,9 @@ function listingPage() {
     console.log("offers",offers)
     const{data:listing,isLoading,error}= useListing(contract,listingId);
     const { mutate: makeBid } = useMakeBid(contract);
+    const currencyContractAddress = NATIVE_TOKENS[networks].wrapped.address;
 //  console.log("listype",listing?.type,ListingType.Auction)
-//  const lt=listing?.type
+//  const lt=listing?.typeNATIVE_TOKENS[networks].wrapped.address
 
 
       useEffect(()=>{
@@ -115,17 +117,20 @@ const createBidOrOffer= async ()=>{
             buyNft()
             return
         }
-        console.log("Buy out price not met ,making offers...")
+        console.log("Buy out price  met ,making offers...",bidAmount,listingId,currencyContractAddress);
+
         await makeOffer({
+         
+          listingId:listingId,
+          pricePerToken:bidAmount,
           quantity:1,
-          listingId,
-          pricePerToken:bidAmount
-        },{
-          onSuccess(data, variables, context) {
+          
+        },
+       {   onSuccess(data, variables, context) {
             alert("Offer made successfully")
               console.log("SUCCESS",data,variables,context)
               router.replace('/')
-              setBidAmount('')
+              
           },
           onError(error, variables, context) {
             alert("ERROR: Offer could not be made")    
@@ -136,15 +141,15 @@ const createBidOrOffer= async ()=>{
       //auction
       if(listing?.type === ListingType.Auction){
 console.log("making bid")
-await makeBid({
-  listingId,
-  bid:bidAmount
-},{
+        await makeBid({
+          listingId,
+          bid:bidAmount
+        },{
   onSuccess(data, variables, context) {
     alert("Bid made successsfully")
       console.log("SUCCESS",data,variables,context)
       setBidAmount('')
-      router.replace('/')
+      router.push('/')
   },
   onError(error, variables, context) {
       alert("ERROR: Bid was not made")
@@ -200,8 +205,8 @@ await makeBid({
 
               </div>
 {/* {if direct show offers here} */}
-                {listing.type == ListingType.Direct && offers &&(
-                  <div className='grid grid-col-2 items-center gap-y-2 '>
+                {listing.type == ListingType.Direct&& offers &&(
+                  <div className='grid grid-cols-2 items-center gap-y-2 '>
                     <p className='font-bold'>Offers:</p>
                     <p className='font-bold'>{offers.length}</p>
 
@@ -209,21 +214,21 @@ await makeBid({
                       <>
                       <p className='flex items-center ml-5 text-sm italic'>
                         <UserCircleIcon className='h-3 mr-2'/>
-                        {offer.offerer.slice(0,5) +
-                        "..." +offer.offerer.slice(-5) }</p>
-                        <div>
+                        {offer.offeror.slice(0,5) +
+                        "..." +offer.offeror.slice(-5) }</p>
+                        <div >
                           <p key={
-                            offer.listingId+offer.offerer+offer.totalOfferAmount.toString()
+                            offer.listingId+offer.offeror+offer.totalOfferAmount.toString()
                           }
                           className='text-sm italic'>
                             {ethers.utils.formatEther(offer.totalOfferAmount)}{" "}
                             {NATIVE_TOKENS[networks].symbol}
                           </p>
-                          {listing.sellerAddress === address &&(
+                          {listing.sellerAddress !== address &&(
                             <button  onClick={()=>{
                               acceptDirectOffer({
                                 listingId,
-                                addressOfOfferor:offer.offerer
+                                addressOfOfferor:offer.offeror
                               },{
                                 onSuccess(data, variables, context) {
                                 
